@@ -210,7 +210,7 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 	ammountinput.id="ammountinput";
 	ammountinput.placeholder = "Ammount to be injected each second";
 	document.getElementById("ammountinput").value=0;
-	setInterval(function(){
+	var autoPlayerCounter = setInterval(function(){
 		if(document.getElementById("ammountinput").value=="")	document.getElementById("ammountinput").value=0;
 			var ammount = parseInt(ammountinput.value);
 		Game.Earn(ammount);
@@ -231,9 +231,27 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 		document.getElementById("product14").click()
 		document.getElementById("product15").click()
 		document.getElementById("product16").click()
+		Game.toSave=true;
 	}, 10)
-	
-	'style="height: 5vh;">Start autoplayer</button>
+	var stopAutoPlayer = document.createElement("button");
+	document.getElementById("autoclicker_start").appendChild(stopAutoPlayer);
+	stopAutoPlayer.innerHTML="Stop AutoPlayer"
+	stopAutoPlayer.id="stopAutoPlayer"
+	stopAutoPlayer.onmouseenter = function(){this.innerHTML = "Stop AutoPlayer<p></p><h5>All current tasks of AutoPlayer will be terminated.</h5><p></p>";}
+	stopAutoPlayer.onmouseleave = function(){this.innerHTML = "Stop AutoPlayer";}
+	stopAutoPlayer.onclick = function(){
+		document.getElementById("autoclicker_startbtn").style.display = "block"
+		document.getElementById("autoclicker_start").removeChild(ammountinput)
+		document.getElementById("autoclicker_start").removeChild(stopAutoPlayer)
+		clearInterval(autoPlayerCounter);
+	}
+	' onmouseenter="
+	this.innerHTML = 'Start AutoPlayer<p></p><h5>AutoPlayer buys and earns everything.</h5><p></p>';
+	" 
+	onmouseleave="
+	this.innerHTML = 'Start AutoPlayer';
+	"
+	style="height: 5vh;">Start AutoPlayer</button>
 	</div>
     
 
