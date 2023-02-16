@@ -1,21 +1,9 @@
-<button style="position: absolute; z-index: 999999999; height: 5vh; margin-top: -25vh;" onclick="
 
-if(this.innerHTML.includes('Open')){
-	document.getElementById('consolecontainer').style.display = 'block';
-	this.innerHTML = 'Close console'
-
-}else if(this.innerHTML.includes('Close')){
-	document.getElementById('consolecontainer').style.display = 'none';
-
-	this.innerHTML = 'Open console'
-}else{
-	alert('error: HTML could not execute. Please reload.')
-}
-" >Open console</button>
-<div id="consolecontainer" style="display: none;">
-<div class="console" id="console"style = "z-index:99999999;position:absolute; margin-top:-25vh;">
+<div id="consolecontainer">
+<div class="console" id="console"style = "position:absolute; margin-top:0;">
     <div class="console-history"></div>
-    <input class="console-input" type="text" autofocus spellcheck="false">
+	<style>.console-history{display: none;}</style>
+    <input class="console-input" id='console-input' type="text" autofocus spellcheck="false">
   </div>
 </div>
     <style>
@@ -32,7 +20,7 @@ if(this.innerHTML.includes('Open')){
     height: 25vh;
     display: flex;
     flex-direction: column;
-    background: #8b8888;
+    background: #8b888800;
   }
   
   .console-history {
@@ -201,64 +189,13 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 
 </head>
 <body>
-	<div id="autoclicker_start" style="margin-top: 25vh;">
-    <button id="autoclicker_startbtn" onclick='		
-	
-	this.style.display = "none";
-	var ammountinput = document.createElement("input");
-	document.getElementById("autoclicker_start").appendChild(ammountinput)
-	ammountinput.id="ammountinput";
-	ammountinput.placeholder = "Ammount to be injected each second";
-	document.getElementById("ammountinput").value=0;
-	var autoPlayerCounter = setInterval(function(){
-		if(document.getElementById("ammountinput").value=="")	document.getElementById("ammountinput").value=0;
-			var ammount = parseInt(ammountinput.value);
-		Game.Earn(ammount);
-		document.getElementById("product0").click()
-		document.getElementById("product1").click()
-		document.getElementById("product2").click()
-		document.getElementById("product3").click()
-		document.getElementById("product4").click()
-		document.getElementById("product5").click()
-		document.getElementById("product6").click()
-		document.getElementById("product7").click()
-		document.getElementById("product8").click()
-		document.getElementById("product9").click()
-		document.getElementById("product10").click()
-		document.getElementById("product11").click()
-		document.getElementById("product12").click()
-		document.getElementById("product13").click()
-		document.getElementById("product14").click()
-		document.getElementById("product15").click()
-		document.getElementById("product16").click()
-		Game.toSave=true;
-	}, 10)
-	var stopAutoPlayer = document.createElement("button");
-	document.getElementById("autoclicker_start").appendChild(stopAutoPlayer);
-	stopAutoPlayer.innerHTML="Stop AutoPlayer"
-	stopAutoPlayer.id="stopAutoPlayer"
-	stopAutoPlayer.onmouseenter = function(){this.innerHTML = "Stop AutoPlayer<p></p><h5>All current tasks of AutoPlayer will be terminated.</h5><p></p>";}
-	stopAutoPlayer.onmouseleave = function(){this.innerHTML = "Stop AutoPlayer";}
-	stopAutoPlayer.onclick = function(){
-		document.getElementById("autoclicker_startbtn").style.display = "block"
-		document.getElementById("autoclicker_start").removeChild(ammountinput)
-		document.getElementById("autoclicker_start").removeChild(stopAutoPlayer)
-		clearInterval(autoPlayerCounter);
-	}
-	' onmouseenter="
-	this.innerHTML = 'Start AutoPlayer<p></p><h5>AutoPlayer buys and earns everything.</h5><p></p>';
-	" 
-	onmouseleave="
-	this.innerHTML = 'Start AutoPlayer';
-	"
-	style="height: 5vh;">Start AutoPlayer</button>
-	</div>
+
     
 
-<div id="wrapper" style="margin-top:30vh;">
+<div id="wrapper" style="margin-top:7vh;">
 
 	<div id="topBar">
-		<div><b>Xenogames Unblocked Cookie Clicker</b>&trade; &copy; <a href="http://orteil.dashnet.org" target="_blank" id="topbarOrteil">Orteil</a>, 2019 - <a href="http://dashnet.org" target="_blank" id="topbarDashnet">DashNet</a></div>
+		<div><b>.. Xivion Software Games - Cookie Clicker (remix of XenoGames224's cookie clicker)</b> &copy; <a href="http://orteil.dashnet.org" target="_blank" id="topbarOrteil">Orteil</a>, 2019 - <a href="http://dashnet.org" target="_blank" id="topbarDashnet">DashNet</a></div>
 		<div><a href="http://twitter.com/orteil42" target="_blank" id="topbarTwitter">twitter</a></div>
 		<div><a href="http://orteil42.tumblr.com" target="_blank" id="topbarTumblr">tumblr</a></div>
 		<!--<div><a href="http://forum.dashnet.org" target="_blank">Official forum</a></div>-->
@@ -444,11 +381,18 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 
 </div>
 <script>
-	function startautoplayer(){
-		setInterval(function(){
-			try{
-				var ammount = 10;
-			Game.Earn(ammount);
+	var autoplayerinterval = ''
+	window.scrollTo(51,document.body.scrollHeight);
+	function startautoplayer(ammount){
+		if (ammount == 0 || ammount == "" || ammount == undefined || ammount == null){
+			document.getElementById('console-input').placeholder = "Error: 1 argument required"; 
+			setTimeout(function(){
+				document.getElementById('console-input').placeholder = ""; 
+			}, 1000)
+			return 'error';
+		}
+		autoplayerinterval = setInterval(function(){
+			Game.Earn(parseInt(ammount));
 			document.getElementById("product0").click()
 			document.getElementById("product1").click()
 			document.getElementById("product2").click()
@@ -466,11 +410,17 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 			document.getElementById("product14").click()
 			document.getElementById("product15").click()
 			document.getElementById("product16").click()
-			
-		}catch (e){
-			console.log("This message will come up often. Autoclicker error: " +e)
-		}
+			Game.toSave = true;
+
 		}, 10)
+	}
+	function stopautoplayer(){
+		clearInterval(autoplayerinterval);
+					document.getElementById('console-input').placeholder = "AutoPlayer's tasks have been terminated"; 
+			setTimeout(function(){
+				document.getElementById('console-input').placeholder = ""; 
+			}, 2500)
+		
 	}
 </script>
 </body>
