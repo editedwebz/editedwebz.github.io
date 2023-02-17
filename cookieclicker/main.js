@@ -2512,7 +2512,7 @@ Game.Launch=function()
 		/*=====================================================================================
 		RESET
 		=======================================================================================*/
-		Game.Reset=function(hard)
+		Game.Reset=function(hard, timeins)
 		{
 			Game.T=0;
 			
@@ -2570,8 +2570,8 @@ Game.Launch=function()
 			Game.season=Game.baseSeason;
 			Game.computeSeasonPrices();
 			
-			Game.startDate=parseInt(Date.now());
-			Game.lastDate=parseInt(Date.now());
+			Game.startDate=parseInt(Date.now() -parseInt(timeins*1000));
+			Game.lastDate=parseInt(Date.now() -parseInt(timeins*1000));
 			
 			Game.cookiesSucked=0;
 			Game.wrinklersPopped=0;
@@ -2686,9 +2686,19 @@ Game.Launch=function()
 				if (Game.prefs.popups) Game.Popup('Game reset');
 				else Game.Notify('Game reset','So long, cookies.',[21,6],6);
 			}
+			Game.toSave = true;
 		}
+		
+		
+		
+		
+		
 		Game.HardReset=function(bypass)
 		{
+			if(Game.bakeryName == 'johnsaysyes'){
+			alert('no.');
+			return;
+		}
 			if (!bypass)
 			{
 				Game.Prompt('<h3>Wipe save</h3><div class="block">Do you REALLY want to wipe your save?<br><small>You will lose your progress, your achievements, and your heavenly chips!</small></div>',[['Yes!','Game.ClosePrompt();Game.HardReset(1);'],'No']);
