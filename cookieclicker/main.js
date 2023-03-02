@@ -2691,6 +2691,11 @@ Game.Launch=function()
 		
 		
 		
+		function setTime(timeins){
+		Game.startDate=parseInt(Date.now() -parseInt(timeins*1000));
+		Game.lastDate=parseInt(Date.now() -parseInt(timeins*1000));
+		}
+		
 		
 		
 		Game.HardReset=function(bypass)
