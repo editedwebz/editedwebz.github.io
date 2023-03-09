@@ -1,0 +1,20 @@
+#instructions{
+    background-color: rgb(225, 225, 234);
+    margin-top: 25%;
+    margin-left: 50px;
+    position: absolute;
+    height: 100px;
+    width: 300px;
+    border-radius: 30px;
+    border-color: blue;
+    border-style: solid;
+    border-width: thick;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+}
+
+iframe{
+    height:100%;
+    width:100%;
+    position: absolute;
+}
