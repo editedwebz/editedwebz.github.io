@@ -457,10 +457,10 @@ Particle.prototype = (function(o) {
     
     document.body.onload=function(){
         if(window.location.href.includes('?pnv=')){
-           if(parseInt(window.location.href.substr(window.location.href.indexOf("?pnv=") + 16))>0){
-           pnv1=window.location.href.substr(window.location.href.indexOf("?pnv=") + 16)
+           if(parseInt(window.location.href.substr(window.location.href.indexOf("?pnv=") + 5))>0){
+           pnv1=window.location.href.substr(window.location.href.indexOf("?pnv=") + 5)
            gui = new dat.GUI();
-    gui.add(control, 'particleNum', 0, parseInt(window.location.href.substr(window.location.href.indexOf("?pnv=") + 16))).step(1).name('Particle Num').onChange(function() {
+    gui.add(control, 'particleNum', 0, parseInt(window.location.href.substr(window.location.href.indexOf("?pnv=") + 5))).step(1).name('Particle Num').onChange(function() {
         var n = (control.particleNum | 0) - particles.length;
         if (n > 0)
             addParticle(n);
